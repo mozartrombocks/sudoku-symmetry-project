@@ -1,56 +1,111 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Counting Symmetric Sudoku Solutions</title>
   <style>
     body {
-      max-width: 800px;
-      margin: auto;
       font-family: Arial, sans-serif;
       line-height: 1.6;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f9f9f9;
+      color: #333;
     }
     h1, h2 {
-      color: #333;
+      color: #2c3e50;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 0;
+    }
+    h2 {
+      margin-top: 40px;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 20px auto;
+      border: 1px solid #ccc;
+      padding: 5px;
+      background: #fff;
+    }
+    p {
+      margin-bottom: 15px;
+    }
+    blockquote {
+      font-style: italic;
+      margin: 20px 0;
+      padding-left: 15px;
+      border-left: 4px solid #2c3e50;
+      color: #555;
+    }
+    footer {
+      margin-top: 50px;
+      text-align: center;
+      font-size: 0.9em;
+      color: #777;
+    }
+    a {
+      color: #2980b9;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
 
-<h1>How Symmetry Changes Sudoku</h1>
-<p><strong>By Mo Rahman</strong></p>
+  <h1>How Symmetry Changes Sudoku</h1>
+  <p><strong>By Mo Rahman</strong></p>
 
-<p>Sudoku might look like a logic puzzle, but behind every completed grid is a serious counting problem...</p>
+  <p>Sudoku may look like a simple logic puzzle, but behind every completed grid is a rich combinatorial structure. In this project, I explored how adding symmetry constraints to a 6×6 Sudoku grid dramatically changes the number of valid solutions.</p>
 
-How Symmetry Changes Sudoku
+  <p>A standard 6×6 Sudoku uses the digits 1 through 6 and is divided into 2×3 sub-blocks. It is known that there are exactly <strong>282,009,600</strong> valid solutions. Rather than counting all of them, I asked a different question: <em>what happens if we deliberately restrict the grid by requiring symmetry?</em></p>
 
-By Mo Rahman
+  <h2>The Central Question</h2>
+  <p>My project focused on the following question:</p>
+  <blockquote>In how many ways can a 6×6 Sudoku grid be completed when symmetry constraints are imposed?</blockquote>
+  <p>I studied two types of symmetry:</p>
+  <ul>
+    <li><strong>Vertical (mirror) symmetry</strong></li>
+    <li><strong>Main-diagonal symmetry</strong></li>
+  </ul>
+  <p>For each case, I examined how symmetry pairs cells together and how those pairings interact with the standard Sudoku rules.</p>
 
-Sudoku may look like a simple logic puzzle, but behind every completed grid is a rich combinatorial structure. In this project, I explored how adding symmetry constraints to a 6×6 Sudoku grid dramatically changes the number of valid solutions.
-A standard 6×6 Sudoku uses the digits 1 through 6 and is divided into 2×3 sub-blocks. It is known that there are exactly 282,009,600 valid solutions. Rather than counting all of them, I asked a different question: what happens if we deliberately restrict the grid by requiring symmetry?
+  <!-- Optional diagram placeholder -->
+  <!-- <img src="images/vertical_symmetry_diagram.png" alt="Vertical symmetry diagram"> -->
 
-The Central Question
-My project focused on the following question:
-  In how many ways can a 6×6 Sudoku grid be completed when symmetry constraints are imposed?
+  <h2>Vertical vs. Diagonal Symmetry</h2>
+  <p>Under vertical symmetry, each cell on the left side of the grid is paired with a corresponding cell on the right. This reduces the number of independent choices from 36 cells to <strong>18 degrees of freedom</strong>. Many partial grids that look valid fail immediately once mirrored, because the reflection creates conflicts in rows, columns, or blocks.</p>
 
-I studied two types of symmetry:
-  Vertical (mirror) symmetry
-  Main-diagonal symmetry
+  <p>Diagonal symmetry behaves differently. Cells along the main diagonal are fixed under reflection, while the remaining cells form symmetric pairs. This leaves <strong>21 degrees of freedom</strong>, making diagonal symmetry slightly less restrictive than vertical symmetry.</p>
 
-For each case, I examined how symmetry pairs cells together and how those pairings interact with the standard Sudoku rules.
+  <p>Comparing these cases showed that symmetry doesn’t just “simplify” Sudoku — it introduces new dependencies that drastically shrink the solution space.</p>
 
-Vertical vs. Diagonal Symmetry
-  Under vertical symmetry, each cell on the left side of the grid is paired with a corresponding cell on the right. This reduces the number of independent choices from 36 cells to 18 degrees of freedom. However, many partial grids that look valid fail immediately once mirrored, because the reflection creates conflicts in rows, columns, or blocks.
+  <!-- Optional diagram placeholder -->
+  <!-- <img src="images/diagonal_symmetry_diagram.png" alt="Diagonal symmetry diagram"> -->
 
-  Diagonal symmetry behaves differently. Cells along the main diagonal are fixed under reflection, while the remaining cells form symmetric pairs. This leaves 21 degrees of freedom, making diagonal symmetry slightly less restrictive than vertical symmetry.
+  <h2>What I Learned</h2>
+  <p>Symmetry affects Sudoku in two stages:</p>
+  <ol>
+    <li>Before applying Sudoku rules, symmetry reduces the number of independent cells.</li>
+    <li>After applying rules, symmetry causes constraints to interact aggressively, eliminating large families of configurations.</li>
+  </ol>
+  <p>This explains why symmetric Sudoku solutions are much rarer than standard ones.</p>
 
-  Comparing these cases showed that symmetry doesn’t just “simplify” Sudoku — it introduces new dependencies that drastically shrink the solution space.
+  <h2>Final Thoughts</h2>
+  <p>This project showed me that familiar puzzles can become genuine research problems when examined through a combinatorial lens. Symmetry, often associated with simplicity, can actually create deeper and more interesting structure.</p>
 
-What I Learned
-One of the most surprising results of this project was how quickly symmetry eliminates valid configurations. Even small constraints propagate across the grid and force contradictions much earlier than expected. This made it clear that symmetric Sudoku puzzles are far rarer than standard ones.
+  <p>If you enjoy Sudoku, try designing a symmetric puzzle yourself — you might discover just how much mathematics is hidden behind a single grid.</p>
 
-More broadly, this project showed me how familiar puzzles can become genuine research problems when viewed through a combinatorial lens. Symmetry, often associated with simplicity, can actually create deeper and more interesting structure.
-
-If you enjoy Sudoku, try designing a symmetric puzzle yourself — you might discover just how much mathematics is hidden behind a single grid.
+  <footer>
+    <p>Published on GitHub Pages | <a href="https://github.com/mozartrombocks/sudoku-symmetry-project">View Repository</a></p>
+  </footer>
 
 </body>
 </html>
